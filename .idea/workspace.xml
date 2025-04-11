@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="72b5b516-1cfb-4cb5-9367-3cc35b309862" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/plugin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/plugin.xml" afterDir="false" />
-    </list>
+    <list default="true" id="72b5b516-1cfb-4cb5-9367-3cc35b309862" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -76,7 +73,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "project.structure.last.edited": "SDKs",
+    "project.structure.last.edited": "Project",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "configurable.group.editor"
