@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="72b5b516-1cfb-4cb5-9367-3cc35b309862" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/plugin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/plugin.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/nobunagastudios/utilitibelt/UtilitiBeltProjectWizard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nobunagastudios/utilitibelt/UtilitiBeltProjectWizard.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
