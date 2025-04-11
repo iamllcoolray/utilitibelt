@@ -13,7 +13,11 @@
   <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
        Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
        Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
-  <description>LITIENGINE is an opensource game engine used to develop 2D games.</description>
+  <description>
+    utiLITI Belt is an IntelliJ Plugin that generates a new LITIENGINE Project.
+
+    LITIENGINE is an opensource game engine used to develop 2D games.
+  </description>
 
   <!-- Product and plugin compatibility requirements.
        Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
