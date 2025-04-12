@@ -32,7 +32,7 @@
 
   <actions>
     <action id="CreateNewProject"
-            class="com.nobunagastudios.utilitibelt.UtilitiBeltProjectAction"
+            class="com.nobunagastudios.utilitibelt.actions.UtilitiBeltProjectWizardAction"
             text="Create New Project"
             description="Creates a new project">
       <add-to-group group-id="FileMenu" />
