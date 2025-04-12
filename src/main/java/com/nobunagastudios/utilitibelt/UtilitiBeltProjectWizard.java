@@ -9,6 +9,7 @@ import com.intellij.openapi.observable.properties.GraphProperty;
 import com.intellij.openapi.observable.properties.PropertyGraph;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.projectRoots.*;
+import com.intellij.openapi.roots.ProjectRootManager;
 import com.intellij.openapi.util.UserDataHolder;
 import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
@@ -59,6 +60,7 @@ public class UtilitiBeltProjectWizard implements LanguageGeneratorNewProjectWiza
                 ApplicationManager.getApplication().runWriteAction(() -> {
                     try {
                         String projectName = getContext().getProjectName();
+                        Sdk selectedSdk = getContext().getProjectJdk();
 
                         String basePath = getContext().getProjectFileDirectory();
                         VirtualFile baseDir = VfsUtil.createDirectoryIfMissing(basePath);
@@ -134,6 +136,10 @@ public class UtilitiBeltProjectWizard implements LanguageGeneratorNewProjectWiza
                                 ("rootProject.name = '" + projectName + "'").getBytes()
                         );
 
+                        if (selectedSdk != null) {
+                                ProjectRootManager.getInstance(project).setProjectSdk(selectedSdk);
+                        }
+
                     } catch (IOException e) {
                         throw new RuntimeException("Failed to generate LITIENGINE project", e);
                     }
@@ -155,12 +161,10 @@ public class UtilitiBeltProjectWizard implements LanguageGeneratorNewProjectWiza
                         .distinct()
                         .toList();
 
-                System.out.println(javaVersions);
-
                 String defaultVersion = javaVersions.isEmpty() ? "17" : javaVersions.get(0);
                 GraphProperty<String> selectedVersion = getPropertyGraph().property(defaultVersion);
 
-                builder.row("Java Version:", row -> {
+                builder.row("JDK:", row -> {
                     JComboBox<String> comboBox = new JComboBox<>(javaVersions.toArray(new String[0]));
                     comboBox.setSelectedItem(defaultVersion);
                     row.cell(comboBox);
