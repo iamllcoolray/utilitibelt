@@ -1,6 +1,5 @@
 package com.nobunagastudios.utilitibelt;
 
-import com.intellij.icons.AllIcons;
 import com.intellij.ide.util.projectWizard.WizardContext;
 import com.intellij.ide.wizard.NewProjectWizardStep;
 import com.intellij.ide.wizard.language.LanguageGeneratorNewProjectWizard;
@@ -10,6 +9,7 @@ import com.intellij.openapi.observable.properties.PropertyGraph;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.projectRoots.*;
 import com.intellij.openapi.roots.ProjectRootManager;
+import com.intellij.openapi.util.IconLoader;
 import com.intellij.openapi.util.UserDataHolder;
 import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
@@ -24,7 +24,7 @@ import java.util.*;
 public class UtilitiBeltProjectWizard implements LanguageGeneratorNewProjectWizard {
     @Override
     public @NotNull Icon getIcon() {
-        return AllIcons.General.Information;
+        return IconLoader.getIcon("/icons/liti-logo-x16.png", getClass());
     }
 
     @Override
