@@ -1,4 +1,4 @@
-# 📦 utiLITI Belt
+# ![LITIENGINE ICON](src/main/resources/icons/liti-logo-x48.png) utiLITI Belt
 
 utiLITI Belt is an IntelliJ Plugin that easily generates a new LITIENGINE Project.
 
@@ -15,11 +15,13 @@ utiLITI Belt is an IntelliJ Plugin that easily generates a new LITIENGINE Projec
 
 ## 📸 Screenshots
 
-> _Coming soon!_
-
-| Description | Screenshot |
-| ----------- | ---------- |
-| UI Preview  |            |
+| Description                           | Screenshot                                                                               |
+|---------------------------------------|------------------------------------------------------------------------------------------|
+| Project Wizard UI                     | ![Project Wizard](src/main/resources/screenshots/utilitibelt-project-wizard-new-ui.png)  |
+| LITIENGINE Project                    | ![Generated Project](src/main/resources/screenshots/litiengine-generated-project.png)    |
+| LITIENGINE Project On Build/Execution | ![Generated Project](src/main/resources/screenshots/litiengine-project-on-build-run.png) |
+| LITIENGINE Game Window                | ![Generated Project](src/main/resources/screenshots/litiengine-game-window.png)          |
+| LITIENGINE Project Executed           | ![Generated Project](src/main/resources/screenshots/litiengine-project-on-built-run.png) |
 
 ---
 
@@ -74,5 +76,5 @@ Contributions are welcome! Feel free to open issues or submit pull requests.
 ## 📬 Contact
 
 Have questions or feedback?\
-Open an issue or reach out on [BlueSky](https://bsky.app/profile/iamllcoolray.bsky.social) / [email](mailto\:iamllcoolray@gmail.com).
+Open an issue or reach out on [BlueSky](https://bsky.app/profile/iamllcoolray.bsky.social) / [email](mailto\:iamllcoolray@gmail.com)
 
