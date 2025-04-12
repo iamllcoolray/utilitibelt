@@ -66,15 +66,14 @@ public class UtilitiBeltProjectWizard implements LanguageGeneratorNewProjectWiza
                         VirtualFile baseDir = VfsUtil.createDirectoryIfMissing(basePath);
                         if (baseDir == null) throw new IOException("Failed to create base directory");
 
-                        VirtualFile src = VfsUtil.createDirectoryIfMissing(baseDir, "src");
-                        VirtualFile main = VfsUtil.createDirectoryIfMissing(src, "main");
-                        VirtualFile java = VfsUtil.createDirectoryIfMissing(main, "java");
-                        VirtualFile resources = VfsUtil.createDirectoryIfMissing(main, "resources");
-                        VfsUtil.createDirectoryIfMissing(resources, "audio");
-                        VfsUtil.createDirectoryIfMissing(resources, "sprites");
-                        VfsUtil.createDirectoryIfMissing(resources, "maps");
-                        VfsUtil.createDirectoryIfMissing(resources, "localization");
-                        VfsUtil.createDirectoryIfMissing(resources, "misc");
+                        VirtualFile java = createOrFindDirectory(baseDir, "src", "main", "java");
+                        VirtualFile resources = createOrFindDirectory(baseDir, "src", "main", "resources");
+
+                        createOrFindDirectory(resources, "audio");
+                        createOrFindDirectory(resources, "sprites");
+                        createOrFindDirectory(resources, "maps");
+                        createOrFindDirectory(resources, "localization");
+                        createOrFindDirectory(resources, "misc");
 
                         VirtualFile mainFile = java.createChildData(this, "Main.java");
                         mainFile.setBinaryContent((
@@ -175,5 +174,22 @@ public class UtilitiBeltProjectWizard implements LanguageGeneratorNewProjectWiza
                 });
             }
         };
+    }
+
+    private VirtualFile createOrFindDirectory(VirtualFile base, String... segments) throws IOException {
+        VirtualFile current = base;
+        for (String segment : segments) {
+            VirtualFile next = current.findChild(segment);
+            System.out.println("Ensuring directory: " + current.getPath());
+            if (next == null) {
+                next = current.createChildDirectory(this, segment);
+            } else if (!next.isDirectory()) {
+                //throw new IOException("'" + next.getPath() + "' exists but is not a directory.");
+                next.delete(this);
+                next = current.createChildDirectory(this, segment);
+            }
+            current = next;
+        }
+        return current;
     }
 }
