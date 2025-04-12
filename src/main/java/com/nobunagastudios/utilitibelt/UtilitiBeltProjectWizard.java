@@ -54,6 +54,8 @@ public class UtilitiBeltProjectWizard implements LanguageGeneratorNewProjectWiza
             public void setupProject(@NotNull Project project) {
                 ApplicationManager.getApplication().runWriteAction(() -> {
                     try {
+                        String projectName = getContext().getProjectName();
+
                         String basePath = getContext().getProjectFileDirectory();
                         VirtualFile baseDir = VfsUtil.createDirectoryIfMissing(basePath);
                         if (baseDir == null) throw new IOException("Failed to create base directory");
@@ -70,13 +72,37 @@ public class UtilitiBeltProjectWizard implements LanguageGeneratorNewProjectWiza
 
                         VirtualFile mainFile = java.createChildData(this, "Main.java");
                         mainFile.setBinaryContent((
-                                "import de.gurkenlabs.litiengine.*;\n\n" +
-                                        "public class Main {\n" +
-                                        "    public static void main(String[] args) {\n" +
-                                        "        Game.init(args);\n" +
-                                        "        Game.start();\n" +
-                                        "    }\n" +
-                                        "}"
+                                "import de.gurkenlabs.litiengine.*;\n" +
+                                "import de.gurkenlabs.litiengine.resources.Resources;\n\n" +
+                                "/**\n" +
+                                "*\n" +
+                                "*@see <a href=\"https://litiengine.com/docs/\">LITIENGINE Documentation</a>\n" +
+                                "*\n" +
+                                "*/\n\n" +
+                                "public class Main {\n" +
+                                "    public static void main(String[] args) {\n" +
+                                "        // set meta information about the game\n" +
+                                "        Game.info().setName(\""+projectName+"\");\n" +
+                                "        Game.info().setSubTitle(\"\");\n" +
+                                "        Game.info().setVersion(\"v0.0.1\");\n" +
+                                "        Game.info().setWebsite(\"link to game\");\n" +
+                                "        Game.info().setDescription(\"A 2D Game made in the LITIENGINE\");\n\n" +
+
+                                "        // init the game infrastructure\n" +
+                                "        Game.init(args);\n\n" +
+
+                                "        // set the icon for the game (this has to be done after initialization because the ScreenManager will not be present otherwise)\n" +
+                                "        // Game.window().setIcon(Resources.images().get(\"path/to/icon/image\"));\n" +
+                                "        Game.graphics().setBaseRenderScale(4f);\n\n" +
+
+                                "        // load data from the utiLITI game file\n" +
+                                "        // Resources.load(\"game.litidata\");\n\n" +
+
+                                "        // load the first level (resources for the map were implicitly loaded from the game file)\n" +
+                                "        // Game.world().loadEnvironment(\"path/to/level\");\n" +
+                                "        Game.start();\n" +
+                                "    }\n" +
+                                "}"
                         ).getBytes());
 
                         VirtualFile buildGradle = baseDir.createChildData(this, "build.gradle");
@@ -98,8 +124,6 @@ public class UtilitiBeltProjectWizard implements LanguageGeneratorNewProjectWiza
                                         "    mainClass = 'Main'\n" +
                                         "}"
                         ).getBytes());
-
-                        String projectName = getContext().getProjectName();
 
                         VirtualFile settingsGradle = baseDir.createChildData(this, "settings.gradle");
                         settingsGradle.setBinaryContent(
