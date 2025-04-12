@@ -5,16 +5,20 @@ import com.intellij.ide.util.projectWizard.WizardContext;
 import com.intellij.ide.wizard.NewProjectWizardStep;
 import com.intellij.ide.wizard.language.LanguageGeneratorNewProjectWizard;
 import com.intellij.openapi.application.ApplicationManager;
+import com.intellij.openapi.observable.properties.GraphProperty;
 import com.intellij.openapi.observable.properties.PropertyGraph;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.projectRoots.*;
 import com.intellij.openapi.util.UserDataHolder;
 import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.ui.dsl.builder.Panel;
+import kotlin.Unit;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.io.IOException;
+import java.util.*;
 
 public class UtilitiBeltProjectWizard implements LanguageGeneratorNewProjectWizard {
     @Override
@@ -139,6 +143,32 @@ public class UtilitiBeltProjectWizard implements LanguageGeneratorNewProjectWiza
             @Override
             public void setupUI(@NotNull Panel builder) {
                 NewProjectWizardStep.super.setupUI(builder);
+
+                List<Sdk> jdks = Arrays.stream(ProjectJdkTable.getInstance().getAllJdks())
+                        .filter(sdk -> sdk.getSdkType() instanceof JavaSdk)
+                        .sorted(Comparator.comparing(Sdk::getVersionString).reversed())
+                        .toList();
+
+                List<String> javaVersions = jdks.stream()
+                        .map(Sdk::getVersionString)
+                        .filter(Objects::nonNull)
+                        .distinct()
+                        .toList();
+
+                System.out.println(javaVersions);
+
+                String defaultVersion = javaVersions.isEmpty() ? "17" : javaVersions.get(0);
+                GraphProperty<String> selectedVersion = getPropertyGraph().property(defaultVersion);
+
+                builder.row("Java Version:", row -> {
+                    JComboBox<String> comboBox = new JComboBox<>(javaVersions.toArray(new String[0]));
+                    comboBox.setSelectedItem(defaultVersion);
+                    row.cell(comboBox);
+
+                    comboBox.addActionListener(e -> selectedVersion.set((String) comboBox.getSelectedItem()));
+
+                    return Unit.INSTANCE;
+                });
             }
         };
     }
