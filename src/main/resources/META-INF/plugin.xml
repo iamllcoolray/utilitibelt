@@ -14,9 +14,7 @@
        Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
        Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
   <description>
-    utiLITI Belt is an IntelliJ Plugin that generates a new LITIENGINE Project.
-
-    LITIENGINE is an opensource game engine used to develop 2D games.
+    utiLITI Belt is an IntelliJ Plugin that easily generates a new LITIENGINE Project.
   </description>
 
   <version>1.0.0</version>

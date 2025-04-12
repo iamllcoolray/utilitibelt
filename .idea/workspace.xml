@@ -6,10 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="72b5b516-1cfb-4cb5-9367-3cc35b309862" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nobunagastudios/utilitibelt/UtilitiBeltProjectWizard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nobunagastudios/utilitibelt/UtilitiBeltProjectWizard.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nobunagastudios/utilitibelt/actions/UtilitiBeltProjectWizardAction.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/plugin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/plugin.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/pluginIcon.svg" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +29,17 @@
             </after_sync>
           </activation>
         </task>
-        <projects_view />
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="utilitibelt" type="f1a62948:ProjectNode" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
       </state>
     </system>
   </component>
