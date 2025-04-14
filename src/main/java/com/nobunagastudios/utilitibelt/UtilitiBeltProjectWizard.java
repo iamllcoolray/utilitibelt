@@ -13,13 +13,17 @@ import com.intellij.openapi.util.IconLoader;
 import com.intellij.openapi.util.UserDataHolder;
 import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.ui.DocumentAdapter;
 import com.intellij.ui.dsl.builder.Panel;
 import kotlin.Unit;
 import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import java.awt.*;
 import java.io.IOException;
 import java.util.*;
+import java.util.List;
 
 public class UtilitiBeltProjectWizard implements LanguageGeneratorNewProjectWizard {
     @Override
@@ -35,6 +39,8 @@ public class UtilitiBeltProjectWizard implements LanguageGeneratorNewProjectWiza
     @Override
     public @NotNull NewProjectWizardStep createStep(@NotNull NewProjectWizardStep newProjectWizardStep) {
         return new NewProjectWizardStep() {
+            final GraphProperty<String> packageNameProperty = getPropertyGraph().property("com.game");
+
             @Override
             public @NotNull UserDataHolder getData() {
                 return newProjectWizardStep.getData();
@@ -62,6 +68,9 @@ public class UtilitiBeltProjectWizard implements LanguageGeneratorNewProjectWiza
                         String projectName = getContext().getProjectName();
                         Sdk selectedSdk = getContext().getProjectJdk();
 
+                        String packageName = packageNameProperty.get();
+
+
                         String basePath = getContext().getProjectFileDirectory();
                         VirtualFile baseDir = VfsUtil.createDirectoryIfMissing(basePath);
                         if (baseDir == null) throw new IOException("Failed to create base directory");
@@ -69,14 +78,19 @@ public class UtilitiBeltProjectWizard implements LanguageGeneratorNewProjectWiza
                         VirtualFile java = createOrFindDirectory(baseDir, "src", "main", "java");
                         VirtualFile resources = createOrFindDirectory(baseDir, "src", "main", "resources");
 
+                        String[] packagePath = packageName.split("\\.");
+                        VirtualFile packageDir = createOrFindDirectory(java, packagePath);
+
                         createOrFindDirectory(resources, "audio");
                         createOrFindDirectory(resources, "sprites");
                         createOrFindDirectory(resources, "maps");
                         createOrFindDirectory(resources, "localization");
                         createOrFindDirectory(resources, "misc");
 
-                        VirtualFile mainFile = java.createChildData(this, "Main.java");
+                        VirtualFile mainFile = packageDir.createChildData(this, "Main.java");
                         mainFile.setBinaryContent((
+                                "package " + packageName + ";\n\n" +
+
                                 "import de.gurkenlabs.litiengine.*;\n" +
                                 "import de.gurkenlabs.litiengine.resources.Resources;\n\n" +
                                 "/**\n" +
@@ -166,9 +180,26 @@ public class UtilitiBeltProjectWizard implements LanguageGeneratorNewProjectWiza
                 builder.row("JDK:", row -> {
                     JComboBox<String> comboBox = new JComboBox<>(javaVersions.toArray(new String[0]));
                     comboBox.setSelectedItem(defaultVersion);
+                    comboBox.setPreferredSize(new Dimension(300, comboBox.getPreferredSize().height));
                     row.cell(comboBox);
 
                     comboBox.addActionListener(e -> selectedVersion.set((String) comboBox.getSelectedItem()));
+
+                    return Unit.INSTANCE;
+                });
+
+                builder.row("Package:", row -> {
+                    JTextField textField = new JTextField();
+                    textField.setText(packageNameProperty.get());
+                    textField.setPreferredSize(new Dimension(300, textField.getPreferredSize().height));
+                    row.cell(textField);
+
+                    textField.getDocument().addDocumentListener(new DocumentAdapter() {
+                        @Override
+                        protected void textChanged(@NotNull DocumentEvent e) {
+                            packageNameProperty.set(textField.getText().trim());
+                        }
+                    });
 
                     return Unit.INSTANCE;
                 });
@@ -178,18 +209,31 @@ public class UtilitiBeltProjectWizard implements LanguageGeneratorNewProjectWiza
 
     private VirtualFile createOrFindDirectory(VirtualFile base, String... segments) throws IOException {
         VirtualFile current = base;
+
         for (String segment : segments) {
             VirtualFile next = current.findChild(segment);
-            System.out.println("Ensuring directory: " + current.getPath());
-            if (next == null) {
-                next = current.createChildDirectory(this, segment);
-            } else if (!next.isDirectory()) {
-                //throw new IOException("'" + next.getPath() + "' exists but is not a directory.");
-                next.delete(this);
-                next = current.createChildDirectory(this, segment);
+            System.out.println("Ensuring directory: " + current.getPath() + "/" + segment);
+
+            if (next != null && !next.isDirectory()) {
+                try {
+                    next.delete(this);
+                } catch (IOException e) {
+                    throw new IOException("Failed to delete existing file: " + next.getPath(), e);
+                }
+                next = null;
             }
+
+            if (next == null) {
+                try {
+                    next = current.createChildDirectory(this, segment);
+                } catch (IOException e) {
+                    throw new IOException("Failed to create directory: " + segment + " under " + current.getPath(), e);
+                }
+            }
+
             current = next;
         }
+
         return current;
     }
 }
