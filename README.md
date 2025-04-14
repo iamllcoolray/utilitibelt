@@ -38,7 +38,8 @@ new-project/
 ├── src/
 │   └── main/
 │       ├── java/
-│       │   └── Main.java
+│       │   └──com.game
+│       │   │   └── Main.java
 │       └── resources/
 │           ├── audio/
 │           ├── localization/
