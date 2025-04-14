@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "com.nobunagastudios"
-version = "1.1.0"
+version = "1.2.0"
 
 repositories {
   mavenCentral()
@@ -30,9 +30,13 @@ tasks {
     kotlinOptions.jvmTarget = "17"
   }
 
+  runIde {
+    systemProperties["idea.workspace.model.cache"] = "false"
+  }
+
   patchPluginXml {
     sinceBuild.set("241")
-    untilBuild.set("243.*")
+    untilBuild.set("251.*")
   }
 
   signPlugin {
