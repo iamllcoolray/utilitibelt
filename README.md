@@ -25,7 +25,13 @@ utiLITI Belt is an IntelliJ Plugin that easily generates a new LITIENGINE Projec
 
 ## 📦 Installation
 
-> _Coming soon!_
+[utiLITI Belt plugin page](https://plugins.jetbrains.com/plugin/27051-utiliti-belt)
+
+1. Install a compatible JetBrains IDE, IntelliJ IDEA, or other IntelliJ-based IDEs 
+2. Launch the IDE and open plugin settings 
+3. Search for Utiliti Belt and click install 
+4. Click New Project + 
+5. Finally, click Utiliti Belt to create a new LITIENGINE project
 
 ---
 
