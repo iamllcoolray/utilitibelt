@@ -4,15 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="72b5b516-1cfb-4cb5-9367-3cc35b309862" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+    <list default="true" id="72b5b516-1cfb-4cb5-9367-3cc35b309862" name="Changes" comment="updated the screenshots of the project">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/nobunagastudios/utilitibelt/UtilitiBeltProjectWizard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/nobunagastudios/utilitibelt/UtilitiBeltProjectWizard.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/plugin.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/plugin.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/screenshots/litiengine-generated-project.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/screenshots/litiengine-generated-project.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/screenshots/litiengine-project-on-build-run.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/screenshots/litiengine-project-on-built-run.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -133,12 +128,30 @@
       <option name="project" value="LOCAL" />
       <updated>1744486480056</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="The game.litidata file is created upon the generation of the LITIENGINE project. There was a slow operation being invoked when loading the project, which required moving the File I/O processes to another thread.">
+      <option name="closed" value="true" />
+      <created>1744714753788</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1744714753788</updated>
+    </task>
+    <task id="LOCAL-00004" summary="updated the screenshots of the project">
+      <option name="closed" value="true" />
+      <created>1744714782295</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1744714782295</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Updated the README file with screenshots of the project" />
     <MESSAGE value="ugraded project v1.0.0 =&gt; v1.1.0" />
-    <option name="LAST_COMMIT_MESSAGE" value="ugraded project v1.0.0 =&gt; v1.1.0" />
+    <MESSAGE value="The game.litidata file is created upon the generation of the LITIENGINE project. There was a slow operation being invoked when loading the project, which required moving the File I/O processes to another thread." />
+    <MESSAGE value="updated the screenshots of the project" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated the screenshots of the project" />
   </component>
 </project>
