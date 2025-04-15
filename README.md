@@ -44,6 +44,7 @@ new-project/
 │           ├── maps/
 │           ├── misc/
 │           └── sprites/
+└── game.litidata
 ```
 
 ---
