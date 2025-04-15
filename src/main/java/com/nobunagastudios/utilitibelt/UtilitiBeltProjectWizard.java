@@ -4,6 +4,7 @@ import com.intellij.ide.util.projectWizard.WizardContext;
 import com.intellij.ide.wizard.NewProjectWizardStep;
 import com.intellij.ide.wizard.language.LanguageGeneratorNewProjectWizard;
 import com.intellij.openapi.application.ApplicationManager;
+import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.observable.properties.GraphProperty;
 import com.intellij.openapi.observable.properties.PropertyGraph;
 import com.intellij.openapi.project.Project;
@@ -63,98 +64,55 @@ public class UtilitiBeltProjectWizard implements LanguageGeneratorNewProjectWiza
 
             @Override
             public void setupProject(@NotNull Project project) {
-                ApplicationManager.getApplication().runWriteAction(() -> {
+                ApplicationManager.getApplication().executeOnPooledThread(() -> {
                     try {
                         String projectName = getContext().getProjectName();
                         Sdk selectedSdk = getContext().getProjectJdk();
-
                         String packageName = packageNameProperty.get();
-
-
                         String basePath = getContext().getProjectFileDirectory();
-                        VirtualFile baseDir = VfsUtil.createDirectoryIfMissing(basePath);
-                        if (baseDir == null) throw new IOException("Failed to create base directory");
 
-                        VirtualFile java = createOrFindDirectory(baseDir, "src", "main", "java");
-                        VirtualFile resources = createOrFindDirectory(baseDir, "src", "main", "resources");
+                        ApplicationManager.getApplication().invokeAndWait(() -> {
+                            WriteCommandAction.runWriteCommandAction(project, () -> {
+                                try {
+                                    VirtualFile baseDir = VfsUtil.createDirectoryIfMissing(basePath);
+                                    if (baseDir == null) throw new IOException("Failed to create base directory");
 
-                        String[] packagePath = packageName.split("\\.");
-                        VirtualFile packageDir = createOrFindDirectory(java, packagePath);
+                                    VirtualFile java = createOrFindDirectory(baseDir, "src", "main", "java");
+                                    VirtualFile resources = createOrFindDirectory(baseDir, "src", "main", "resources");
 
-                        createOrFindDirectory(resources, "audio");
-                        createOrFindDirectory(resources, "sprites");
-                        createOrFindDirectory(resources, "maps");
-                        createOrFindDirectory(resources, "localization");
-                        createOrFindDirectory(resources, "misc");
+                                    String[] packagePath = packageName.split("\\.");
+                                    VirtualFile packageDir = createOrFindDirectory(java, packagePath);
 
-                        VirtualFile mainFile = packageDir.createChildData(this, "Main.java");
-                        mainFile.setBinaryContent((
-                                "package " + packageName + ";\n\n" +
+                                    createOrFindDirectory(resources, "audio");
+                                    createOrFindDirectory(resources, "sprites");
+                                    createOrFindDirectory(resources, "maps");
+                                    createOrFindDirectory(resources, "localization");
+                                    createOrFindDirectory(resources, "misc");
 
-                                "import de.gurkenlabs.litiengine.*;\n" +
-                                "import de.gurkenlabs.litiengine.resources.Resources;\n\n" +
-                                "/**\n" +
-                                "*\n" +
-                                "*@see <a href=\"https://litiengine.com/docs/\">LITIENGINE Documentation</a>\n" +
-                                "*\n" +
-                                "*/\n\n" +
-                                "public class Main {\n" +
-                                "    public static void main(String[] args) {\n" +
-                                "        // set meta information about the game\n" +
-                                "        Game.info().setName(\""+projectName+"\");\n" +
-                                "        Game.info().setSubTitle(\"\");\n" +
-                                "        Game.info().setVersion(\"v0.0.1\");\n" +
-                                "        Game.info().setWebsite(\"link to game\");\n" +
-                                "        Game.info().setDescription(\"A 2D Game made in the LITIENGINE\");\n\n" +
+                                    VirtualFile mainFile = packageDir.createChildData(this, "Main.java");
+                                    mainFile.setBinaryContent(buildMainClass(projectName, packageName).getBytes());
 
-                                "        // init the game infrastructure\n" +
-                                "        Game.init(args);\n\n" +
+                                    VirtualFile buildGradle = baseDir.createChildData(this, "build.gradle");
+                                    buildGradle.setBinaryContent(buildGradleContent(packageName).getBytes());
 
-                                "        // set the icon for the game (this has to be done after initialization because the ScreenManager will not be present otherwise)\n" +
-                                "        // Game.window().setIcon(Resources.images().get(\"path/to/icon/image\"));\n" +
-                                "        Game.graphics().setBaseRenderScale(4f);\n\n" +
+                                    VirtualFile settingsGradle = baseDir.createChildData(this, "settings.gradle");
+                                    settingsGradle.setBinaryContent((gradleSettingsContent(projectName)).getBytes());
 
-                                "        // load data from the utiLITI game file\n" +
-                                "        // Resources.load(\"game.litidata\");\n\n" +
+                                    VirtualFile litidata = baseDir.createChildData(this, "game.litidata");
+                                    litidata.setBinaryContent(defaultLitiData().getBytes());
 
-                                "        // load the first level (resources for the map were implicitly loaded from the game file)\n" +
-                                "        // Game.world().loadEnvironment(\"path/to/level\");\n" +
-                                "        Game.start();\n" +
-                                "    }\n" +
-                                "}"
-                        ).getBytes());
+                                    if (selectedSdk != null) {
+                                        ProjectRootManager.getInstance(project).setProjectSdk(selectedSdk);
+                                    }
 
-                        VirtualFile buildGradle = baseDir.createChildData(this, "build.gradle");
-                        buildGradle.setBinaryContent((
-                                "plugins {\n" +
-                                        "    id 'java'\n" +
-                                        "    id 'application'\n" +
-                                        "}\n\n" +
-                                        "group 'com.example'\n" +
-                                        "version '1.0'\n\n" +
-                                        "repositories {\n" +
-                                        "    mavenCentral()\n" +
-                                        "    maven { url 'https://maven.pkg.jetbrains.space/litiengine/p/maven/releases' }\n" +
-                                        "}\n\n" +
-                                        "dependencies {\n" +
-                                        "    implementation 'de.gurkenlabs:litiengine:0.8.0'\n" +
-                                        "}\n\n" +
-                                        "application {\n" +
-                                        "    mainClass = 'Main'\n" +
-                                        "}"
-                        ).getBytes());
+                                } catch (IOException e) {
+                                    throw new RuntimeException("Failed to create project structure", e);
+                                }
+                            });
+                        });
 
-                        VirtualFile settingsGradle = baseDir.createChildData(this, "settings.gradle");
-                        settingsGradle.setBinaryContent(
-                                ("rootProject.name = '" + projectName + "'").getBytes()
-                        );
-
-                        if (selectedSdk != null) {
-                                ProjectRootManager.getInstance(project).setProjectSdk(selectedSdk);
-                        }
-
-                    } catch (IOException e) {
-                        throw new RuntimeException("Failed to generate LITIENGINE project", e);
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 });
             }
@@ -236,4 +194,81 @@ public class UtilitiBeltProjectWizard implements LanguageGeneratorNewProjectWiza
 
         return current;
     }
+
+    private String buildMainClass(String projectName, String packageName) {
+        return "package " + packageName + ";\n\n" +
+
+                "import de.gurkenlabs.litiengine.*;\n" +
+                "import de.gurkenlabs.litiengine.resources.Resources;\n\n" +
+
+                "/**\n" +
+                "*\n" +
+                "* @see <a href=\"https://litiengine.com/docs/\">LITIENGINE Documentation</a>\n" +
+                "*\n" +
+                "*/\n\n" +
+
+                "public class Main {\n" +
+                "    public static void main(String[] args) {\n" +
+                "        // set meta information about the game\n" +
+                "        Game.info().setName(\"" + projectName + "\");\n" +
+                "        Game.info().setSubTitle(\"\");\n" +
+                "        Game.info().setVersion(\"v0.0.1\");\n" +
+                "        Game.info().setWebsite(\"link to game\");\n" +
+                "        Game.info().setDescription(\"A 2D Game made in the LITIENGINE\");\n\n" +
+
+                "        // init the game infrastructure\n" +
+                "        Game.init(args);\n\n" +
+
+                "        // set the icon for the game (this has to be done after initialization because the ScreenManager will not be present otherwise)\n" +
+                "        // Game.window().setIcon(Resources.images().get(\"path/to/icon/image\"));\n" +
+                "        Game.graphics().setBaseRenderScale(4f);\n\n" +
+
+                "        // load data from the utiLITI game file\n" +
+                "        Resources.load(\"game.litidata\");\n\n" +
+
+                "        // load the first level (resources for the map were implicitly loaded from the game file)\n" +
+                "        // Game.world().loadEnvironment(\"path/to/level\");\n" +
+                "        Game.start();\n" +
+                "    }\n" +
+                "}";
+    }
+
+    private String buildGradleContent(String packageName) {
+        return "plugins {\n" +
+                "    id 'java'\n" +
+                "    id 'application'\n" +
+                "}\n\n" +
+
+                "group 'com.example'\n" +
+                "version '1.0'\n\n" +
+                "repositories {\n" +
+                "    mavenCentral()\n" +
+                "    maven { url 'https://maven.pkg.jetbrains.space/litiengine/p/maven/releases' }\n" +
+                "}\n\n" +
+
+                "dependencies {\n" +
+                "    implementation 'de.gurkenlabs:litiengine:0.8.0'\n" +
+                "}\n\n" +
+
+                "application {\n" +
+                "    mainClass = '" + packageName + ".Main'\n" +
+                "}";
+    }
+
+    private String gradleSettingsContent(String projectName){
+        return "rootProject.name = '" + projectName + "'";
+    }
+
+    private String defaultLitiData() {
+        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+                "<litidata version=\"1.0\">\n" +
+                "<maps/>\n" +
+                "<spriteSheets/>\n" +
+                "<tilesets/>\n" +
+                "<emitters/>\n" +
+                "<blueprints/>\n" +
+                "<sounds/>\n" +
+                "</litidata>\n";
+    }
+
 }

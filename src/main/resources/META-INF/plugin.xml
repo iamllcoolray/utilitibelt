@@ -38,8 +38,9 @@
   <change-notes>
     <![CDATA[
         <ul>
-          <li>NEW: Developers are able to name the project package before generating the LITIENGINE project</li>
-          <li>FIX: Resized the width of the dropdown window and package text field</li>
+          <li>NEW: The game.litidata file is created upon the generation of the LITIENGINE project</li>
+          <li>UPDATE: New screenshots</li>
+          <li>FIX: There was a slow operation being invoked when loading the project, which required moving the File I/O processes to another thread</li>
         </ul>
     ]]>
   </change-notes>
