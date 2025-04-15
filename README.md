@@ -19,9 +19,7 @@ utiLITI Belt is an IntelliJ Plugin that easily generates a new LITIENGINE Projec
 |---------------------------------------|------------------------------------------------------------------------------------------|
 | Project Wizard UI                     | ![Project Wizard](src/main/resources/screenshots/utilitibelt-project-wizard-new-ui.png)  |
 | LITIENGINE Project                    | ![Generated Project](src/main/resources/screenshots/litiengine-generated-project.png)    |
-| LITIENGINE Project On Build/Execution | ![Generated Project](src/main/resources/screenshots/litiengine-project-on-build-run.png) |
 | LITIENGINE Game Window                | ![Generated Project](src/main/resources/screenshots/litiengine-game-window.png)          |
-| LITIENGINE Project Executed           | ![Generated Project](src/main/resources/screenshots/litiengine-project-on-built-run.png) |
 
 ---
 
