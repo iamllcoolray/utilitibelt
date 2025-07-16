@@ -239,7 +239,7 @@ public class UtilitiBeltProjectWizard implements LanguageGeneratorNewProjectWiza
                 "    id 'application'\n" +
                 "}\n\n" +
 
-                "group 'com.example'\n" +
+                "group '" + packageName +"'\n" +
                 "version '1.0'\n\n" +
                 "repositories {\n" +
                 "    mavenCentral()\n" +
@@ -260,15 +260,17 @@ public class UtilitiBeltProjectWizard implements LanguageGeneratorNewProjectWiza
     }
 
     private String defaultLitiData() {
-        return "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
-                "<litidata version=\"1.0\">\n" +
-                "<maps/>\n" +
-                "<spriteSheets/>\n" +
-                "<tilesets/>\n" +
-                "<emitters/>\n" +
-                "<blueprints/>\n" +
-                "<sounds/>\n" +
-                "</litidata>\n";
+        return """
+                <?xml version="1.0" encoding="UTF-8"?>
+                <litidata version="1.0">
+                <maps/>
+                <spriteSheets/>
+                <tilesets/>
+                <emitters/>
+                <blueprints/>
+                <sounds/>
+                </litidata>
+                """;
     }
 
 }
