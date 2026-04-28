@@ -7,6 +7,7 @@ import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.observable.properties.GraphProperty;
 import com.intellij.openapi.observable.properties.PropertyGraph;
+import com.intellij.openapi.progress.ProcessCanceledException;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.projectRoots.*;
 import com.intellij.openapi.roots.ProjectRootManager;
@@ -16,6 +17,9 @@ import com.intellij.openapi.vfs.VfsUtil;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.ui.DocumentAdapter;
 import com.intellij.ui.dsl.builder.Panel;
+import freemarker.template.Configuration;
+import freemarker.template.Template;
+import freemarker.template.TemplateException;
 import kotlin.Unit;
 import org.jetbrains.annotations.NotNull;
 
@@ -23,10 +27,24 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import java.awt.*;
 import java.io.IOException;
+import java.io.StringWriter;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.List;
 
 public class UtilitiBeltProjectWizard implements LanguageGeneratorNewProjectWizard {
+
+    private static final Configuration FREEMARKER_CFG;
+
+    static {
+        FREEMARKER_CFG = new Configuration(Configuration.VERSION_2_3_32);
+        FREEMARKER_CFG.setClassLoaderForTemplateLoading(
+                UtilitiBeltProjectWizard.class.getClassLoader(),
+                "templates"
+        );
+        FREEMARKER_CFG.setDefaultEncoding("UTF-8");
+    }
+
     @Override
     public @NotNull Icon getIcon() {
         return IconLoader.getIcon("/icons/liti-logo-x16.png", getClass());
@@ -71,6 +89,10 @@ public class UtilitiBeltProjectWizard implements LanguageGeneratorNewProjectWiza
                         String packageName = packageNameProperty.get();
                         String basePath = getContext().getProjectFileDirectory();
 
+                        Map<String, Object> model = new HashMap<>();
+                        model.put("projectName", projectName);
+                        model.put("packageName", packageName);
+
                         ApplicationManager.getApplication().invokeAndWait(() -> {
                             WriteCommandAction.runWriteCommandAction(project, () -> {
                                 try {
@@ -89,17 +111,10 @@ public class UtilitiBeltProjectWizard implements LanguageGeneratorNewProjectWiza
                                     createOrFindDirectory(resources, "localization");
                                     createOrFindDirectory(resources, "misc");
 
-                                    VirtualFile mainFile = packageDir.createChildData(this, "Main.java");
-                                    mainFile.setBinaryContent(buildMainClass(projectName, packageName).getBytes());
-
-                                    VirtualFile buildGradle = baseDir.createChildData(this, "build.gradle");
-                                    buildGradle.setBinaryContent(buildGradleContent(packageName).getBytes());
-
-                                    VirtualFile settingsGradle = baseDir.createChildData(this, "settings.gradle");
-                                    settingsGradle.setBinaryContent((gradleSettingsContent(projectName)).getBytes());
-
-                                    VirtualFile litidata = baseDir.createChildData(this, "game.litidata");
-                                    litidata.setBinaryContent(defaultLitiData().getBytes());
+                                    writeTemplate(packageDir, "Main.java",      "Main.java.ftl",       model);
+                                    writeTemplate(baseDir,    "build.gradle",   "build.gradle.ftl",    model);
+                                    writeTemplate(baseDir,    "settings.gradle","settings.gradle.ftl", model);
+                                    writeTemplate(baseDir,    "game.litidata",  "game.litidata.ftl",   model);
 
                                     if (selectedSdk != null) {
                                         ProjectRootManager.getInstance(project).setProjectSdk(selectedSdk);
@@ -111,6 +126,8 @@ public class UtilitiBeltProjectWizard implements LanguageGeneratorNewProjectWiza
                             });
                         });
 
+                    } catch (ProcessCanceledException e) {
+                        throw e;
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -165,6 +182,19 @@ public class UtilitiBeltProjectWizard implements LanguageGeneratorNewProjectWiza
         };
     }
 
+    private void writeTemplate(VirtualFile dir, String fileName,
+                               String templateName, Map<String, Object> model) throws IOException {
+        try {
+            Template template = FREEMARKER_CFG.getTemplate(templateName);
+            StringWriter writer = new StringWriter();
+            template.process(model, writer);
+            VirtualFile file = dir.createChildData(this, fileName);
+            file.setBinaryContent(writer.toString().getBytes(StandardCharsets.UTF_8));
+        } catch (TemplateException e) {
+            throw new IOException("Template processing failed for: " + templateName, e);
+        }
+    }
+
     private VirtualFile createOrFindDirectory(VirtualFile base, String... segments) throws IOException {
         VirtualFile current = base;
 
@@ -194,83 +224,4 @@ public class UtilitiBeltProjectWizard implements LanguageGeneratorNewProjectWiza
 
         return current;
     }
-
-    private String buildMainClass(String projectName, String packageName) {
-        return "package " + packageName + ";\n\n" +
-
-                "import de.gurkenlabs.litiengine.*;\n" +
-                "import de.gurkenlabs.litiengine.resources.Resources;\n\n" +
-
-                "/**\n" +
-                "*\n" +
-                "* @see <a href=\"https://litiengine.com/docs/\">LITIENGINE Documentation</a>\n" +
-                "*\n" +
-                "*/\n\n" +
-
-                "public class Main {\n" +
-                "    public static void main(String[] args) {\n" +
-                "        // set meta information about the game\n" +
-                "        Game.info().setName(\"" + projectName + "\");\n" +
-                "        Game.info().setSubTitle(\"\");\n" +
-                "        Game.info().setVersion(\"v0.0.1\");\n" +
-                "        Game.info().setWebsite(\"link to game\");\n" +
-                "        Game.info().setDescription(\"A 2D Game made in the LITIENGINE\");\n\n" +
-
-                "        // init the game infrastructure\n" +
-                "        Game.init(args);\n\n" +
-
-                "        // set the icon for the game (this has to be done after initialization because the ScreenManager will not be present otherwise)\n" +
-                "        // Game.window().setIcon(Resources.images().get(\"path/to/icon/image\"));\n" +
-                "        Game.graphics().setBaseRenderScale(4f);\n\n" +
-
-                "        // load data from the utiLITI game file\n" +
-                "        Resources.load(\"game.litidata\");\n\n" +
-
-                "        // load the first level (resources for the map were implicitly loaded from the game file)\n" +
-                "        // Game.world().loadEnvironment(\"path/to/level\");\n" +
-                "        Game.start();\n" +
-                "    }\n" +
-                "}";
-    }
-
-    private String buildGradleContent(String packageName) {
-        return "plugins {\n" +
-                "    id 'java'\n" +
-                "    id 'application'\n" +
-                "}\n\n" +
-
-                "group '" + packageName +"'\n" +
-                "version '1.0'\n\n" +
-                "repositories {\n" +
-                "    mavenCentral()\n" +
-                "    maven { url 'https://maven.pkg.jetbrains.space/litiengine/p/maven/releases' }\n" +
-                "}\n\n" +
-
-                "dependencies {\n" +
-                "    implementation 'de.gurkenlabs:litiengine:0.11.1'\n" +
-                "}\n\n" +
-
-                "application {\n" +
-                "    mainClass = '" + packageName + ".Main'\n" +
-                "}";
-    }
-
-    private String gradleSettingsContent(String projectName){
-        return "rootProject.name = '" + projectName + "'";
-    }
-
-    private String defaultLitiData() {
-        return """
-                <?xml version="1.0" encoding="UTF-8"?>
-                <litidata version="1.0">
-                <maps/>
-                <spriteSheets/>
-                <tilesets/>
-                <emitters/>
-                <blueprints/>
-                <sounds/>
-                </litidata>
-                """;
-    }
-
 }

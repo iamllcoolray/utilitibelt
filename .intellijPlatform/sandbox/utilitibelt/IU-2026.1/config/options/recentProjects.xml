@@ -2,25 +2,25 @@
   <component name="RecentProjectsManager">
     <option name="additionalInfo">
       <map>
-        <entry key="$USER_HOME$/Downloads/untitled">
+        <entry key="$USER_HOME$/Downloads/untitled1">
           <value>
-            <RecentProjectMetaInfo frameTitle="untitled – Main.java [untitled.main]" opened="true" projectWorkspaceId="3CyJPysobnLyT1q9AoJk02ctwL1">
-              <option name="activationTimestamp" value="1777351902243" />
+            <RecentProjectMetaInfo frameTitle="untitled1 – Main.java [untitled1.main]" opened="true" projectWorkspaceId="3CyO90NZVSCqin7brdDz0cWrj6U">
+              <option name="activationTimestamp" value="1777354219490" />
               <option name="binFolder" value="$APPLICATION_HOME_DIR$/bin" />
               <option name="build" value="IU-261.22158.277" />
               <option name="buildTimestamp" value="1774414860000" />
               <option name="colorInfo">
-                <RecentProjectColorInfo associatedIndex="2" />
+                <RecentProjectColorInfo associatedIndex="3" />
               </option>
               <frame x="260" y="36" width="1400" height="1000" />
               <option name="productionCode" value="IU" />
-              <option name="projectOpenTimestamp" value="1777351855364" />
+              <option name="projectOpenTimestamp" value="1777354187876" />
             </RecentProjectMetaInfo>
           </value>
         </entry>
       </map>
     </option>
-    <option name="lastOpenedProject" value="$USER_HOME$/Downloads/untitled" />
+    <option name="lastOpenedProject" value="$USER_HOME$/Downloads/untitled1" />
     <option name="lastProjectLocation" value="$USER_HOME$/Downloads" />
   </component>
 </application>

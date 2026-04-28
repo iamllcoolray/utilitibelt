@@ -7,7 +7,7 @@
     </option>
   </component>
   <component name="FileEditorManager">
-    <leaf ideFingerprint="1wbkiys9nneyy">
+    <leaf ideFingerprint="3su4z5n8790mu" SIDE_TABS_SIZE_LIMIT_KEY="-1">
       <file current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/game/Main.java" file-id="105370" managing-fs="1777351188370">
           <provider editor-type-id="text-editor" selected="true">
@@ -23,12 +23,12 @@
   <component name="FileTypeUsageLocalSummary"><![CDATA[{
   "data": {
     "JAVA": {
-      "usageCount": 1,
-      "lastUsed": 1777351888227
+      "usageCount": 2,
+      "lastUsed": 1777354170021
     }
   }
 }]]></component>
-  <component name="IdeDocumentHistory"><![CDATA[{}]]></component>
+  <component name="IdeDocumentHistory">{}</component>
   <component name="IgnoredFileRootStore">
     <option name="generatedRoots">
       <set>
@@ -38,7 +38,7 @@
   </component>
   <component name="LanguageUsageStatistics">
     <language id="JAVA">
-      <summary usageCount="1" lastUsage="1777351888227" />
+      <summary usageCount="2" lastUsage="1777354170024" />
     </language>
   </component>
   <component name="ProjectRoots">
@@ -279,7 +279,7 @@
       <window_info anchor="bottom" id="Problems View" order="2" />
       <window_info anchor="bottom" id="Terminal" order="3" />
       <window_info anchor="bottom" id="Services" order="4" />
-      <window_info anchor="bottom" id="Build" order="5" />
+      <window_info anchor="bottom" id="Build" order="5" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="6" show_stripe_button="false" weight="0.3305" />
       <window_info anchor="right" content_ui="combo" id="Notifications" order="0" weight="0.25" />
       <window_info anchor="right" id="AIAssistant" order="1" weight="0.25" />

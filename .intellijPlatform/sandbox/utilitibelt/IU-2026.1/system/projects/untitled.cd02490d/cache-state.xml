@@ -8,7 +8,8 @@
           "settingsFiles": {
             "/home/oda/Downloads/untitled/gradle/wrapper/gradle-wrapper.properties": 3752667589,
             "/home/oda/Downloads/untitled/build.gradle": 1388677485,
-            "/home/oda/Downloads/untitled/settings.gradle": 3790698267
+            "/home/oda/Downloads/untitled/settings.gradle": 3790698267,
+            "/home/oda/.gradle/gradle.properties": 3421304282
           }
         }
       }
@@ -61,7 +62,7 @@
   <component name="ProjectDependenciesModelState">
     <option name="PROJECT_STATE" value="[{&quot;type&quot;:&quot;maven&quot;,&quot;namespace&quot;:&quot;de.gurkenlabs&quot;,&quot;name&quot;:&quot;litiengine&quot;,&quot;version&quot;:{&quot;value&quot;:&quot;0.11.1&quot;},&quot;coordinates&quot;:&quot;maven:de.gurkenlabs:litiengine:0.11.1&quot;,&quot;searchCoordinates&quot;:&quot;de.gurkenlabs:litiengine:0.11.1&quot;,&quot;searchKey&quot;:&quot;e9d97c8189cb4cade8fc66a77e858f57eec39a1b8eeccb8836bc1b213b6ff901&quot;,&quot;humanReadableCoordinates&quot;:&quot;maven:de.gurkenlabs:litiengine:0.11.1&quot;}]" />
   </component>
-  <component name="RestoreUpdateTree"><![CDATA[{}]]></component>
+  <component name="RestoreUpdateTree">{}</component>
   <component name="sourceFolderManager">
     <sourceFolders>
       <SourceFolderModelState>
