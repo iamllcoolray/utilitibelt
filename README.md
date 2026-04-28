@@ -57,6 +57,8 @@ new-project/
 
 ## 🤝 Contributing
 
+JDK 23
+
 Contributions are welcome! Feel free to open issues or submit pull requests.
 
 1. Fork the repo

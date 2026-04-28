@@ -1,7 +1,9 @@
+import org.jetbrains.intellij.platform.gradle.TestFrameworkType
+
 plugins {
   id("java")
-  id("org.jetbrains.kotlin.jvm") version "1.9.25"
-  id("org.jetbrains.intellij") version "1.17.4"
+  id("org.jetbrains.kotlin.jvm") version "2.1.21"
+  id("org.jetbrains.intellij.platform") version "2.15.0"
 }
 
 group = "com.nobunagastudios"
@@ -9,34 +11,38 @@ version = "1.3.0"
 
 repositories {
   mavenCentral()
+  intellijPlatform {
+    defaultRepositories()
+  }
 }
 
-// Configure Gradle IntelliJ Plugin
-// Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
-intellij {
-  version.set("2024.1.7")
-  type.set("IC") // Target IDE Platform
+dependencies {
+  intellijPlatform {
+    intellijIdea("2026.1")
+    bundledPlugin("com.intellij.java")
+    testFramework(TestFrameworkType.Platform)
+  }
+}
 
-  plugins.set(listOf("java"))
+intellijPlatform {
+  pluginConfiguration {
+    ideaVersion {
+      sinceBuild = "241"
+      untilBuild = "261.*"
+    }
+  }
 }
 
 tasks {
-  // Set the JVM compatibility versions
   withType<JavaCompile> {
-    sourceCompatibility = "17"
-    targetCompatibility = "17"
+    sourceCompatibility = "23"
+    targetCompatibility = "23"
   }
+
   withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions.jvmTarget = "17"
-  }
-
-  runIde {
-    systemProperties["idea.workspace.model.cache"] = "false"
-  }
-
-  patchPluginXml {
-    sinceBuild.set("241")
-    untilBuild.set("251.*")
+    compilerOptions {
+      jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_23)
+    }
   }
 
   signPlugin {

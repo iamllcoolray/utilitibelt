@@ -247,7 +247,7 @@ public class UtilitiBeltProjectWizard implements LanguageGeneratorNewProjectWiza
                 "}\n\n" +
 
                 "dependencies {\n" +
-                "    implementation 'de.gurkenlabs:litiengine:0.8.0'\n" +
+                "    implementation 'de.gurkenlabs:litiengine:0.11.1'\n" +
                 "}\n\n" +
 
                 "application {\n" +

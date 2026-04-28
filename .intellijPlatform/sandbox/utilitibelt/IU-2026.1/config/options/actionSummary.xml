@@ -1,0 +1,31 @@
+<application>
+  <component name="ActionsLocalSummary">
+    <e n="EditorBackSpace">
+      <i c="2" l="1777351264584" />
+    </e>
+    <e n="EditorRight">
+      <i c="2" l="1777351264253" />
+    </e>
+    <e n="ExternalSystem.ProjectRefreshAction">
+      <i c="1" l="1777351266071" />
+    </e>
+    <e n="OpenFile">
+      <i c="1" l="1777351475792" />
+    </e>
+    <e n="Run">
+      <i c="3" l="1777351278264" />
+    </e>
+    <e n="SettingsEntryPoint">
+      <i c="1" l="1777351217549" />
+    </e>
+    <e n="ShowProjectStructureSettings">
+      <i c="1" l="1777351218871" />
+    </e>
+    <e n="ShowSettings">
+      <i c="1" l="1777351228826" />
+    </e>
+    <e n="WelcomeScreen.CreateNewProject">
+      <i c="1" l="1777351194679" />
+    </e>
+  </component>
+</application>
