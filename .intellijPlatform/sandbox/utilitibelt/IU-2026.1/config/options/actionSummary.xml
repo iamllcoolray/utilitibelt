@@ -1,5 +1,8 @@
 <application>
   <component name="ActionsLocalSummary">
+    <e n="CloseProject">
+      <i c="1" l="1777351821523" />
+    </e>
     <e n="EditorBackSpace">
       <i c="2" l="1777351264584" />
     </e>
@@ -13,7 +16,7 @@
       <i c="1" l="1777351475792" />
     </e>
     <e n="Run">
-      <i c="3" l="1777351278264" />
+      <i c="4" l="1777351890992" />
     </e>
     <e n="SettingsEntryPoint">
       <i c="1" l="1777351217549" />
@@ -25,7 +28,10 @@
       <i c="1" l="1777351228826" />
     </e>
     <e n="WelcomeScreen.CreateNewProject">
-      <i c="1" l="1777351194679" />
+      <i c="2" l="1777351840858" />
+    </e>
+    <e n="WelcomeScreen.RevealIn">
+      <i c="1" l="1777351829746" />
     </e>
   </component>
 </application>

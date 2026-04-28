@@ -7,45 +7,49 @@
     <option name="fontSize" value="13.0" />
     <option name="presentationModeIdeScale" value="1.75" />
   </component>
-  <component name="PropertyService">{
-  &quot;keyToString&quot;: {
-    &quot;LAST_CALCULATED_COLOR_INDEX_KEY&quot;: &quot;1&quot;,
-    &quot;RunOnceActivity.AIPromoWindowAdvisorPreheat&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.VFSInitializationConditionsToFusReporter&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.modal.commit.toggle&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.reset.auto.reparse.settings.to.default&quot;: &quot;true&quot;,
-    &quot;build.toolwindow.Sync.selection.state&quot;: &quot;com.intellij.build.BuildTreeConsoleView&quot;,
-    &quot;build.toolwindow.run.selection.state&quot;: &quot;com.intellij.build.BuildTreeConsoleView&quot;,
-    &quot;com.intellij.ide.projectWizard.generators.JavaNewProjectWizard$Step.selectedStep&quot;: &quot;IntelliJ&quot;,
-    &quot;defaultJdkConfigured&quot;: &quot;true&quot;,
-    &quot;evlsprt3.261&quot;: &quot;7&quot;,
-    &quot;experimental.ui.on.first.startup&quot;: &quot;true&quot;,
-    &quot;experimental.ui.onboarding.proposed.version&quot;: &quot;261.22158.277&quot;,
-    &quot;experimental.ui.used.version&quot;: &quot;261.22158.277&quot;,
-    &quot;fileTypeChangedCounter&quot;: &quot;1&quot;,
-    &quot;fontSizeToResetConsole&quot;: &quot;13.0&quot;,
-    &quot;fontSizeToResetEditor&quot;: &quot;13.0&quot;,
-    &quot;input.method.disabler.muted&quot;: &quot;true&quot;,
-    &quot;installed.kotlin.plugin.version&quot;: &quot;261.22158.277-IJ&quot;,
-    &quot;llm.installer.last.toolwindow.state&quot;: &quot;LLM_INSTALLER&quot;,
-    &quot;migrated.non.roamable.values.from.general.settings&quot;: &quot;true&quot;,
-    &quot;previousColorScheme&quot;: &quot;_@user_Islands Dark&quot;,
-    &quot;project.wizard.group&quot;: &quot;NPW.simple-project.utiLITI Belt&quot;,
-    &quot;registry.to.advanced.settings.migration.build&quot;: &quot;IU-261.22158.277&quot;,
-    &quot;trial.state.last.availability.check&quot;: &quot;1777351189989&quot;,
-    &quot;trial.state.last.availability.state&quot;: &quot;true&quot;,
-    &quot;trial.state.last.state&quot;: &quot;TRIAL_AVAILABLE&quot;,
-    &quot;ts.lib.d.ts.version&quot;: &quot;5.9.3&quot;
+  <component name="PropertyService"><![CDATA[{
+  "keyToString": {
+    "LAST_CALCULATED_COLOR_INDEX_KEY": "2",
+    "RunOnceActivity.AIPromoWindowAdvisorPreheat": "true",
+    "RunOnceActivity.VFSInitializationConditionsToFusReporter": "true",
+    "RunOnceActivity.git.modal.commit.toggle": "true",
+    "RunOnceActivity.reset.auto.reparse.settings.to.default": "true",
+    "build.toolwindow.Sync.selection.state": "com.intellij.build.BuildTreeConsoleView",
+    "build.toolwindow.run.selection.state": "com.intellij.build.BuildTreeConsoleView",
+    "com.intellij.ide.projectWizard.generators.JavaNewProjectWizard$Step.selectedStep": "IntelliJ",
+    "defaultJdkConfigured": "true",
+    "evlsprt3.261": "7",
+    "experimental.ui.on.first.startup": "true",
+    "experimental.ui.onboarding.proposed.version": "261.22158.277",
+    "experimental.ui.used.version": "261.22158.277",
+    "fileTypeChangedCounter": "1",
+    "fontSizeToResetConsole": "13.0",
+    "fontSizeToResetEditor": "13.0",
+    "input.method.disabler.muted": "true",
+    "installed.kotlin.plugin.version": "261.22158.277-IJ",
+    "last_opened_file_path": "/home/oda/Downloads",
+    "llm.installer.last.toolwindow.state": "LLM_INSTALLER",
+    "migrated.non.roamable.values.from.general.settings": "true",
+    "previousColorScheme": "_@user_Islands Dark",
+    "project.wizard.group": "NPW.simple-project.utiLITI Belt",
+    "registry.to.advanced.settings.migration.build": "IU-261.22158.277",
+    "trial.state.last.availability.check": "1777351189989",
+    "trial.state.last.availability.state": "true",
+    "trial.state.last.state": "TRIAL_AVAILABLE",
+    "ts.lib.d.ts.version": "5.9.3"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;fileTypeDetectors&quot;: [
-      &quot;com.intellij.ide.scratch.ScratchFileServiceImpl$Detector&quot;,
-      &quot;com.intellij.database.vfs.DbStorageFileType$Detector&quot;,
-      &quot;com.intellij.docker.dockerFile.DockerFileTypeDetector&quot;,
-      &quot;org.jetbrains.plugins.textmate.TextMateFileType$TextMateFileDetector&quot;
+  "keyToStringList": {
+    "file.chooser.recent.files": [
+      "/home/oda/Downloads"
+    ],
+    "fileTypeDetectors": [
+      "com.intellij.ide.scratch.ScratchFileServiceImpl$Detector",
+      "com.intellij.database.vfs.DbStorageFileType$Detector",
+      "com.intellij.docker.dockerFile.DockerFileTypeDetector",
+      "org.jetbrains.plugins.textmate.TextMateFileType$TextMateFileDetector"
     ]
   }
-}</component>
+}]]></component>
   <component name="ReworkedTerminalUsage">{
   &quot;firstIdeSessionMoment&quot;: {
     &quot;type&quot;: &quot;org.jetbrains.plugins.terminal.TerminalFirstIdeSessionMoment.BeforeTrackingStarted&quot;

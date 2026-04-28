@@ -1,4 +1,4 @@
-package com.nobunagastudios.utilitibelt;
+package com.hibiscusgames.utilitibelt;
 
 import com.intellij.ide.util.projectWizard.WizardContext;
 import com.intellij.ide.wizard.NewProjectWizardStep;

@@ -6,7 +6,7 @@ plugins {
   id("org.jetbrains.intellij.platform") version "2.15.0"
 }
 
-group = "com.nobunagastudios"
+group = "com.hibiscusgames"
 version = "1.3.0"
 
 repositories {
