@@ -59,6 +59,7 @@ public class UtilitiBeltProjectWizard implements LanguageGeneratorNewProjectWiza
     public @NotNull NewProjectWizardStep createStep(@NotNull NewProjectWizardStep newProjectWizardStep) {
         return new NewProjectWizardStep() {
             final GraphProperty<String> packageNameProperty = getPropertyGraph().property("com.game");
+            final GraphProperty<String> litiEngineVersionProperty = getPropertyGraph().property("0.11.1");
 
             @Override
             public @NotNull UserDataHolder getData() {
@@ -85,12 +86,14 @@ public class UtilitiBeltProjectWizard implements LanguageGeneratorNewProjectWiza
                 ApplicationManager.getApplication().executeOnPooledThread(() -> {
                     try {
                         String projectName = getContext().getProjectName();
+                        String litiEngineVersion = litiEngineVersionProperty.get();
                         Sdk selectedSdk = getContext().getProjectJdk();
                         String packageName = packageNameProperty.get();
                         String basePath = getContext().getProjectFileDirectory();
 
                         Map<String, Object> model = new HashMap<>();
                         model.put("projectName", projectName);
+                        model.put("litiEngineVersion", litiEngineVersion);
                         model.put("packageName", packageName);
 
                         ApplicationManager.getApplication().invokeAndWait(() -> {
@@ -137,6 +140,22 @@ public class UtilitiBeltProjectWizard implements LanguageGeneratorNewProjectWiza
             @Override
             public void setupUI(@NotNull Panel builder) {
                 NewProjectWizardStep.super.setupUI(builder);
+
+                builder.row("LITIEngine Version:", row -> {
+                    JTextField textField = new JTextField();
+                    textField.setText(litiEngineVersionProperty.get());
+                    textField.setPreferredSize(new Dimension(300, textField.getPreferredSize().height));
+                    row.cell(textField);
+
+                    textField.getDocument().addDocumentListener(new DocumentAdapter() {
+                        @Override
+                        protected void textChanged(@NotNull DocumentEvent e) {
+                            litiEngineVersionProperty.set(textField.getText().trim());
+                        }
+                    });
+
+                    return Unit.INSTANCE;
+                });
 
                 List<Sdk> jdks = Arrays.stream(ProjectJdkTable.getInstance().getAllJdks())
                         .filter(sdk -> sdk.getSdkType() instanceof JavaSdk)

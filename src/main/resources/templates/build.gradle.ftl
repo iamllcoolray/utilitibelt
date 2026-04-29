@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'de.gurkenlabs:litiengine:0.11.1'
+    implementation 'de.gurkenlabs:litiengine:${litiEngineVersion}'
 }
 
 application {
