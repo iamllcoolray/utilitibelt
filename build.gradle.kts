@@ -1,13 +1,15 @@
+import org.jetbrains.changelog.Changelog
 import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 
 plugins {
   id("java")
   id("org.jetbrains.kotlin.jvm") version "2.1.21"
   id("org.jetbrains.intellij.platform") version "2.15.0"
+  id("org.jetbrains.changelog") version "2.2.0"
 }
 
 group = "com.hibiscusgames"
-version = "1.4.0"
+version = "1.5.0"
 
 repositories {
   mavenCentral()
@@ -31,7 +33,24 @@ intellijPlatform {
       sinceBuild = "241"
       untilBuild = "261.*"
     }
+
+    val cl = project.changelog
+    changeNotes = providers.provider {
+      with(cl) {
+        renderItem(
+          (getOrNull(project.version.toString()) ?: getUnreleased())
+            .withHeader(false)
+            .withEmptySections(false),
+          Changelog.OutputType.HTML,
+        )
+      }
+    }
   }
+}
+
+changelog {
+  groups.set(listOf("NEW", "UPDATE", "FIXED"))
+  versionPrefix = ""
 }
 
 tasks {
