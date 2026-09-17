@@ -6,19 +6,7 @@
 
 ### UPDATE
 
-### FIXED
-
-## 1.5.0 - 2026-04-29
-
-### NEW
-
-- FreeMarker template support for project generation
-- LITIEngine version selection within the project wizard
-
-### UPDATE
-
-- Project file generation now driven by FreeMarker templates instead of hardcoded strings
+- Plugin compatibility no longer capped with an `untilBuild` upper bound, so it stays installable on future IDE versions without a manual bump
+- Build now targets Java 23 via Gradle toolchain (`jvmToolchain(23)`) instead of manually set `sourceCompatibility`/`targetCompatibility`/`jvmTarget`
 
 ### FIXED
-
-- ProcessCanceledException now correctly rethrown
