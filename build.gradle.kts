@@ -72,6 +72,6 @@ tasks {
   }
 
   publishPlugin {
-    token.set(providers.gradleProperty("publish.token"))
+    token.set(providers.environmentVariable("PUBLISH_TOKEN"))
   }
 }
